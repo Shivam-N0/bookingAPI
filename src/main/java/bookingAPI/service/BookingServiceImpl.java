@@ -27,7 +27,7 @@ public class BookingServiceImpl implements BookingService {
 		if (result != null) {
 			out.setId(result.getId());
 			out.setCustomerName(customer.getCustomerName());
-			out.setRoomType(customer.getCustomerName());
+			out.setRoomType(customer.getRoomType());
 			out.setStatus(BookingConstants.SUCCESS_STATUS);
 		} else {
 			out.setStatus(BookingConstants.UNSUCCESSFUL_STATUS);

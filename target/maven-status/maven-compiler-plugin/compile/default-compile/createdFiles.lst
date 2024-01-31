@@ -1,5 +1,6 @@
 bookingAPI\service\BookingService.class
 bookingAPI\api\BookingAPIController.class
+bookingAPI\config\WebAppInitializer.class
 bookingAPI\repository\BookingRepository.class
 bookingAPI\service\BookingServiceImpl.class
 bookingAPI\constants\BookingConstants.class

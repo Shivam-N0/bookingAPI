@@ -44,6 +44,7 @@ public class BookingDTO {
 
 	@Override
 	public String toString() {
-		return "Booking [ id = " + id + " ,customerName = " + customerName + " ,roomType = " + roomType + " ";
+		return "BookingDTO [id=" + id + ", customerName=" + customerName + ", roomType=" + roomType + ", status="
+				+ status + "]";
 	}
 }

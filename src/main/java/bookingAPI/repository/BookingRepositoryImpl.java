@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import bookingAPI.constants.BookingConstants;
@@ -19,7 +19,7 @@ import bookingAPI.dto.BookingDTO;
 @Repository
 public class BookingRepositoryImpl implements BookingRepository {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookingRepositoryImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(BookingRepositoryImpl.class);
 
 	/**
 	 * Creates new Booking
@@ -30,22 +30,27 @@ public class BookingRepositoryImpl implements BookingRepository {
 		String query = BookingConstants.BOOKING_INSERT_QUERY;
 		query = query.replaceAll(":name", customer.getCustomerName());
 		query = query.replaceAll(":type", customer.getRoomType());
+		String queryId = BookingConstants.GET_ID_QUERY;
 		Connection connect = null;
 		PreparedStatement ps = null;
+		PreparedStatement psId = null;
 		ResultSet result = null;
 		try {
 			Class.forName(BookingConstants.JDBC_DRIVER);
 			connect = DriverManager.getConnection(BookingConstants.DB_URL, BookingConstants.DB_USER,
 					BookingConstants.DB_PASS);
 			ps = connect.prepareStatement(query);
-			result = ps.executeQuery();
+			ps.executeUpdate();
+			psId = connect.prepareStatement(queryId);
+			result = psId.executeQuery();
+			if(result != null && result.next())
+				booking.setId(result.getLong("id"));
 
 		} catch (Exception e) {
 			LOGGER.error("Error while creating Booking : " + e.toString(), e);
 			booking = null;
 		} finally {
 			try {
-				result.close();
 				ps.close();
 				connect.close();
 			} catch (SQLException e) {

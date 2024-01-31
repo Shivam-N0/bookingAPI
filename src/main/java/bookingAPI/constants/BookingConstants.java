@@ -5,7 +5,7 @@ package bookingAPI.constants;
  */
 public class BookingConstants {
 
-	public static final String BOOKING_INSERT_QUERY = "insert into Booking_Details (id, name, type) values ((select max(id) from Booking_Details) +1 ,:name,:type)";
+	public static final String BOOKING_INSERT_QUERY = "insert into Booking_Details (id, name, type) values ((select max(id) from Booking_Details) +1 ,':name',':type')";
 
 	public static final String BOOKING_GET_QUERY = "select id, name, type from Booking_Details where id = :id";
 
@@ -22,6 +22,8 @@ public class BookingConstants {
 	public static final String BOOKING_DELETED = "Booking Deleted Successfuly";
 
 	public static final String BOOKING_NOT_DELETED = "Booking Deletion Unsuccessfuly/ Booking not found";
+	
+	public static final String GET_ID_QUERY = "select max(id) as id from Booking_Details";
 
 	public static final String JDBC_DRIVER = "org.postgresql.Driver";
 	public static final String DB_URL = "jdbc:postgresql://localhost:5442/bookings_db";
